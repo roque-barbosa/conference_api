@@ -5,9 +5,17 @@ class LecturesController < ApplicationController
   end
   
   def create
+
+    @durationConverted = 0
+    if lecture_params[:duration] == "lightning"
+      @durationConverted = 5
+    else
+      @durationConverted = lecture_params[:duration].split("min")[0]
+    end
+
     @lecture = Lecture.new({
       name: lecture_params[:name],
-      duration: lecture_params[:duration]
+      duration: @durationConverted
     })
     if @lecture.save
       render json: @lecture, status: :created
@@ -56,6 +64,5 @@ class LecturesController < ApplicationController
   def lecture_params
     params.require(:lecture).permit(:name, :duration)
   end
-  
-  
+
 end
