@@ -1,7 +1,7 @@
 class LecturesController < ApplicationController
   def index
-    @lectures = Lecture.all
-    render json: @lectures, status: :ok
+    @lectures = Lecture.order(duration: :desc)
+    render :index, status: :ok
   end
   
   def create
@@ -18,7 +18,7 @@ class LecturesController < ApplicationController
       duration: @durationConverted
     })
     if @lecture.save
-      render json: @lecture, status: :created
+      render :show, status: :created
     else
       render json: {error: "Error creating lecture"}
     end
@@ -31,9 +31,9 @@ class LecturesController < ApplicationController
         name: params[:name],
         duration: params[:duration]
       )
-      render json: @lecture, status: :ok
+      render :show, status: :ok
     else
-      render json: {error: "Lecture not find"}
+      render json: {error: "Lecture not found"}
     end
       
   end
