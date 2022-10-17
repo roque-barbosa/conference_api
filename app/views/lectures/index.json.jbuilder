@@ -3,6 +3,7 @@ json.data do
     json.lecture do
       json.call(
         lecture,
+        :id,
         :name,
         :duration
       )

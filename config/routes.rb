@@ -4,4 +4,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+  get '/tracks', to: 'lectures#show_tracks'
+  # post '/tracks', to: 'lectures#import_tracks'
+
+  post '/tracks', to: 'lectures#import'
 end
